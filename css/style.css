@@ -112,7 +112,7 @@ a {
   left: 0;
   right: 0;
   display: none;
-  max-height: 200px;
+  max-height: 196px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -120,6 +120,8 @@ a {
 }
 
 .select__option {
+  display: flex;
+  align-items: center;
   padding: 0.8rem 1rem;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
@@ -128,6 +130,11 @@ a {
 .select__option:hover {
   background-color: #f5f5f5;
   transition: 0.1s background-color ease-in;
+}
+
+.select__option-img {
+  display: block;   
+  margin-right: 10px;
 }
 
 .select__option.select__option--selected {

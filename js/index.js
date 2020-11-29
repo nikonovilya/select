@@ -1,15 +1,27 @@
 const selectData = [
-  {id: 1, value: 'Vue'},
-  {id: 2, value: 'React'},
-  {id: 3, value: 'React Native'},
-  {id: 4, value: 'Angular'},
-  {id: 5, value: 'Vanilla JavaScript'},
+  { id: 1, value: 'Vue', img: 'img/vue.svg', imgAlt: 'Vue Icon' },
+  { id: 2, value: 'React', img: 'img/react.svg', imgAlt: 'React Icon' },
+  {
+    id: 3,
+    value: 'React Native',
+    img: 'img/react-native.svg',
+    imgAlt: 'React Native Icon',
+  },
+  { id: 4, value: 'Angular', img: 'img/angular.svg', imgAlt: 'Angular Icon' },
+  {
+    id: 5,
+    value: 'Vanilla JavaScript',
+    img: 'img/javascript.svg',
+    imgAlt: 'JavaScript Icon',
+  },
 ];
 
 const select = new Select('#select', {
   placeholder: 'Выберите элемент',
-  selectedId: 1,
+  // selectedId - number. Назначить опцию активной
+  selectedId: null,
   data: selectData,
+  imgSize: 22,
 });
 
 $.select = select;

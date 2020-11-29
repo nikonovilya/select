@@ -1,21 +1,36 @@
-const getTemplate = (data = [], placeholder, selectedId) => {
+const getTemplate = (data = [], placeholder, selectedId, imgSize) => {
   let textPlaceholder = placeholder ?? 'Default placeholder';
-
+  let optionImgSize = imgSize ?? 22;
   const options = data.map((option) => {
     let cls = '';
-
+    let arrowAlt = ''; //TODO
     if (option.id === selectedId) {
       textPlaceholder = option.value;
       cls = 'select__option--selected';
     }
     return `
-      <li class="select__option ${cls}" data-type="option" data-id="${option.id}">${option.value}</li>
+    <li class="select__option ${cls}" data-type="option" data-id="${option.id}">
+    ${
+      option.img
+        ? `
+      <img class="select__option-img" src="${
+        option.img
+      }" width="${optionImgSize}" height="${optionImgSize}" alt="${
+            option.imgAlt || ''
+          }">
+      `
+        : ''
+    }
+      <span>${option.value}</span>
+    </li>
     `;
   });
 
   return `
     <div class="select__input" data-type="input">
-      <span data-type="value">${textPlaceholder}</span>
+      <div class="select__input-wrap">
+        <span data-type="value">${textPlaceholder}</span>
+      </div>
       <img src="img/arrow.svg" width="10px" height="10px" data-type="arrow" alt="Открыть список" tabindex="0">
     </div>
     <ul class="select__options">${options.join('')}</ul>
@@ -34,9 +49,14 @@ class Select {
   }
 
   #render() {
-    const { placeholder, data } = this.options;
+    const { placeholder, data, imgSize } = this.options;
     this.$el.classList.add('select');
-    this.$el.innerHTML = getTemplate(data, placeholder, this.selectedId);
+    this.$el.innerHTML = getTemplate(
+      data,
+      placeholder,
+      this.selectedId,
+      imgSize
+    );
   }
 
   #setup() {
