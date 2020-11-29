@@ -1,21 +1,26 @@
 const getTemplate = (data = [], placeholder, selectedId, imgSize) => {
   let textPlaceholder = placeholder ?? 'Default placeholder';
   let optionImgSize = imgSize ?? 22;
+
+  let arrowAlt = 'Список зыкрыт'; //TODO
+  // arrowAlt = 'Список открыт';
+
   const options = data.map((option) => {
-    let cls = '';
-    let arrowAlt = ''; //TODO
+    let selectedOption = '';
+
     if (option.id === selectedId) {
       textPlaceholder = option.value;
-      cls = 'select__option--selected';
+      selectedOption = 'select__option--selected';
     }
+
     return `
-    <li class="select__option ${cls}" data-type="option" data-id="${option.id}">
+    <li class="select__option ${selectedOption}" data-type="option" data-id="${option.id}">
     ${
       option.img
         ? `
-      <img class="select__option-img" src="${
-        option.img
-      }" width="${optionImgSize}" height="${optionImgSize}" alt="${
+          <img class="select__option-img" src="${
+            option.img
+          }" width="${optionImgSize}" height="${optionImgSize}" alt="${
             option.imgAlt || ''
           }">
       `
@@ -31,7 +36,7 @@ const getTemplate = (data = [], placeholder, selectedId, imgSize) => {
       <div class="select__input-wrap">
         <span data-type="value">${textPlaceholder}</span>
       </div>
-      <img src="img/arrow.svg" width="10px" height="10px" data-type="arrow" alt="Открыть список" tabindex="0">
+      <img src="img/arrow.svg" width="10px" height="10px" data-type="arrow" alt="${arrowAlt}" tabindex="0">
     </div>
     <ul class="select__options">${options.join('')}</ul>
   `;

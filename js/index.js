@@ -19,7 +19,7 @@ const selectData = [
 const select = new Select('#select', {
   placeholder: 'Выберите элемент',
   // selectedId - number. Назначить опцию активной
-  selectedId: null,
+  selectedId: 2,
   data: selectData,
   imgSize: 22,
 });
