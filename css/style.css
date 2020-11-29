@@ -69,7 +69,8 @@ a {
 
 .container {
   width: 500px;
-  margin: 20vh auto 0;
+  padding-top: 20vh;
+  margin: 0 auto;
 }
 
 .select {
@@ -82,7 +83,7 @@ a {
 }
 
 .select.select--open .select__input {
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
 }
 
 .select__overlay {

@@ -24,6 +24,7 @@ const getTemplate = (data = [], placeholder, selectedId) => {
 
 class Select {
   constructor(selector, options) {
+    this.window = window;
     this.$el = document.querySelector(selector);
     this.options = options;
     this.selectedId = options.selectedId;
@@ -39,10 +40,24 @@ class Select {
   }
 
   #setup() {
-    this.clickHandler = this.clickHandler.bind(this);
-    this.$el.addEventListener('click', this.clickHandler);
     this.$arrow = this.$el.querySelector('[data-type="arrow"]');
     this.$value = this.$el.querySelector('[data-type="value"]');
+
+    // listener по клику на input
+    this.clickHandler = this.clickHandler.bind(this);
+    this.$el.addEventListener('click', this.clickHandler);
+
+    // listener по клику за пределами select и select__options
+    this.clickHandlerWindow = this.clickHandlerWindow.bind(this);
+    this.window.addEventListener('click', this.clickHandlerWindow);
+
+    // listener для клавиши ESC
+    this.clickHandlerESC = this.clickHandlerESC.bind(this);
+    this.window.addEventListener('keydown', this.clickHandlerESC);
+
+    // listener для arrow select'а
+    this.clickHandlerArrow = this.clickHandlerArrow.bind(this);
+    this.$arrow.addEventListener('keydown', this.clickHandlerArrow);
   }
 
   clickHandler(evt) {
@@ -53,6 +68,33 @@ class Select {
     } else if (type === 'option') {
       const id = evt.target.dataset.id;
       this.select(id);
+    }
+  }
+
+  clickHandlerWindow(evt) {
+    const { type } = evt.target.dataset;
+    if (type !== 'input' && type !== 'option') {
+      if (this.$el.classList.contains('select--open')) {
+        this.close();
+      }
+    }
+  }
+
+  clickHandlerESC(evt) {
+    const ESC = 27;
+    if (evt.keyCode === ESC) {
+      if (this.$el.classList.contains('select--open')) {
+        evt.preventDefault();
+        this.close();
+      }
+    }
+  }
+
+  clickHandlerArrow(evt) {
+    const ENTER = 13;
+    if (evt.keyCode === ENTER) {
+      evt.preventDefault();
+      this.toggle();
     }
   }
 
@@ -95,6 +137,9 @@ class Select {
 
   destroy() {
     this.$el.removeEventListener('click', this.clickHandler);
+    this.window.removeEventListener('click', this.clickHandlerWindow);
+    this.window.removeEventListener('keydown', this.clickHandlerESC);
+    this.$arrow.removeEventListener('keydown', this.clickHandlerArrow);
     this.$el.parentNode.removeChild(this.$el);
   }
 }
