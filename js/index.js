@@ -19,8 +19,9 @@ const selectData = [
 const select = new Select('#select', {
   placeholder: 'Выберите элемент',
   // selectedId - number. Назначить опцию активной
-  selectedId: 2,
+  selectedId: 4,
   data: selectData,
+  inputImgSrc: 'img/arrow.svg',
   imgSize: 22,
 });
 

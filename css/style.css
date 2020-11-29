@@ -8,7 +8,7 @@ body {
   min-width: 320px;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat", "Arial", sans-serif;
+  font-family: 'Montserrat', 'Arial', sans-serif;
   font-size: 16px;
   font-weight: 400;
   font-style: normal;
@@ -107,6 +107,16 @@ a {
   cursor: pointer;
 }
 
+.select__input-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.select__input-img {
+  display: block;
+  margin-right: 10px;
+}
+
 .select__options {
   position: absolute;
   top: 46px;
@@ -133,7 +143,7 @@ a {
 }
 
 .select__option-img {
-  display: block;   
+  display: block;
   margin-right: 10px;
 }
 

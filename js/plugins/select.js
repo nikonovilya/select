@@ -1,16 +1,18 @@
-const getTemplate = (data = [], placeholder, selectedId, imgSize) => {
+const getTemplate = (data = [], placeholder, selectedId, inputImgSrc, imgSize) => {
   let textPlaceholder = placeholder ?? 'Default placeholder';
   let optionImgSize = imgSize ?? 22;
+  let optionImgSrc = '';
 
   let arrowAlt = 'Список зыкрыт'; //TODO
   // arrowAlt = 'Список открыт';
 
-  const options = data.map((option) => {
+  const options = data.map((option, i) => {
     let selectedOption = '';
 
     if (option.id === selectedId) {
       textPlaceholder = option.value;
       selectedOption = 'select__option--selected';
+      optionImgSrc = option.img;
     }
 
     return `
@@ -34,7 +36,14 @@ const getTemplate = (data = [], placeholder, selectedId, imgSize) => {
   return `
     <div class="select__input" data-type="input">
       <div class="select__input-wrap">
-        <span data-type="value">${textPlaceholder}</span>
+      ${
+        selectedId !== null && inputImgSrc ? 
+        `
+        <img class="select__input-img" src="${optionImgSrc}" width="${optionImgSize}" height="${optionImgSize}">
+        `
+        : ''
+      }
+      <span data-type="value">${textPlaceholder}</span>
       </div>
       <img src="img/arrow.svg" width="10px" height="10px" data-type="arrow" alt="${arrowAlt}" tabindex="0">
     </div>
@@ -54,12 +63,13 @@ class Select {
   }
 
   #render() {
-    const { placeholder, data, imgSize } = this.options;
+    const { placeholder, data, inputImgSrc, imgSize } = this.options;
     this.$el.classList.add('select');
     this.$el.innerHTML = getTemplate(
       data,
       placeholder,
       this.selectedId,
+      inputImgSrc,
       imgSize
     );
   }
